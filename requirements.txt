@@ -1,0 +1,21 @@
+# Core Deep Learning Framework
+tensorflow>=2.15.0
+keras>=3.0.0
+
+# Computer Vision & Video Processing
+opencv-python>=4.8.0
+
+# Data Manipulation & Numerical Computing
+numpy>=1.24.0,<2.0.0
+pandas>=2.0.0
+
+# Machine Learning & Evaluation Metrics
+scikit-learn>=1.3.0
+
+# Visualization & Plotting
+matplotlib>=3.7.0
+seaborn>=0.12.0
+Pillow>=9.5.0
+
+# Jupyter Notebook Utilities (Optional / Recommended)
+ipython>=8.12.0
