@@ -1,0 +1,76 @@
+timestamp,frame,behavior,confidence,risk_level,alert_active
+2026-10-12 18:38:37.814,1,Safe driving,0.9591,LOW,False
+2026-10-12 18:38:38.373,2,Safe driving,0.9605,LOW,False
+2026-10-12 18:38:38.936,3,Safe driving,0.9558,LOW,False
+2026-10-12 18:38:39.496,4,Safe driving,0.9546,LOW,False
+2026-10-12 18:38:40.086,5,Safe driving,0.9449,LOW,False
+2026-10-12 18:38:40.642,6,Safe driving,0.9384,LOW,False
+2026-10-12 18:38:41.198,7,Safe driving,0.9308,LOW,False
+2026-10-12 18:38:41.763,8,Safe driving,0.9263,LOW,False
+2026-10-12 18:38:42.327,9,Safe driving,0.9268,LOW,False
+2026-10-12 18:38:42.946,10,Safe driving,0.928,LOW,False
+2026-10-12 18:38:43.511,11,Safe driving,0.9291,LOW,False
+2026-10-12 18:38:44.084,12,Safe driving,0.9298,LOW,False
+2026-10-12 18:38:44.669,13,Safe driving,0.9254,LOW,False
+2026-10-12 18:38:45.244,14,Safe driving,0.9214,LOW,False
+2026-10-12 18:38:45.807,15,Safe driving,0.9191,LOW,False
+2026-10-12 18:38:46.372,16,Safe driving,0.84,LOW,False
+2026-10-12 18:38:46.935,17,Safe driving,0.7647,LOW,False
+2026-10-12 18:38:47.497,18,Safe driving,0.6893,LOW,False
+2026-10-12 18:38:48.056,19,Safe driving,0.6157,LOW,False
+2026-10-12 18:38:48.622,20,Safe driving,0.5413,LOW,False
+2026-10-12 18:38:49.185,21,Texting - right hand,0.4872,HIGH,False
+2026-10-12 18:38:49.748,22,Texting - right hand,0.5673,HIGH,False
+2026-10-12 18:38:50.311,23,Texting - right hand,0.6465,HIGH,False
+2026-10-12 18:38:50.871,24,Texting - right hand,0.7254,HIGH,False
+2026-10-12 18:38:51.437,25,Texting - right hand,0.8055,HIGH,False
+2026-10-12 18:38:52.000,26,Texting - right hand,0.8856,HIGH,False
+2026-10-12 18:38:52.564,27,Texting - right hand,0.9661,HIGH,False
+2026-10-12 18:38:53.179,28,Texting - right hand,0.9662,HIGH,True
+2026-10-12 18:38:53.750,29,Texting - right hand,0.9665,HIGH,True
+2026-10-12 18:38:54.319,30,Texting - right hand,0.9661,HIGH,True
+2026-10-12 18:38:54.883,31,Texting - right hand,0.8857,HIGH,True
+2026-10-12 18:38:55.448,32,Texting - right hand,0.8052,HIGH,True
+2026-10-12 18:38:56.013,33,Texting - right hand,0.7247,HIGH,True
+2026-10-12 18:38:56.575,34,Texting - right hand,0.6445,HIGH,True
+2026-10-12 18:38:57.134,35,Texting - right hand,0.5643,HIGH,True
+2026-10-12 18:38:57.693,36,Texting - right hand,0.4844,HIGH,True
+2026-10-12 18:38:58.261,37,Safe driving,0.5476,LOW,False
+2026-10-12 18:38:58.824,38,Safe driving,0.6224,LOW,False
+2026-10-12 18:38:59.381,39,Safe driving,0.6999,LOW,False
+2026-10-12 18:38:59.943,40,Safe driving,0.7781,LOW,False
+2026-10-12 18:39:00.505,41,Safe driving,0.8561,LOW,False
+2026-10-12 18:39:01.065,42,Safe driving,0.9339,LOW,False
+2026-10-12 18:39:01.626,43,Safe driving,0.9294,LOW,False
+2026-10-12 18:39:02.182,44,Safe driving,0.9259,LOW,False
+2026-10-12 18:39:02.754,45,Safe driving,0.9227,LOW,False
+2026-10-12 18:39:03.337,46,Safe driving,0.8436,LOW,False
+2026-10-12 18:39:03.901,47,Safe driving,0.7677,LOW,False
+2026-10-12 18:39:04.471,48,Safe driving,0.6909,LOW,False
+2026-10-12 18:39:05.036,49,Safe driving,0.6163,LOW,False
+2026-10-12 18:39:05.622,50,Safe driving,0.5416,LOW,False
+2026-10-12 18:39:06.187,51,Talking on phone - right hand,0.4875,HIGH,False
+2026-10-12 18:39:06.764,52,Talking on phone - right hand,0.5676,HIGH,False
+2026-10-12 18:39:07.323,53,Talking on phone - right hand,0.6468,HIGH,False
+2026-10-12 18:39:07.880,54,Talking on phone - right hand,0.7257,HIGH,False
+2026-10-12 18:39:08.437,55,Talking on phone - right hand,0.8053,HIGH,False
+2026-10-12 18:39:08.992,56,Talking on phone - right hand,0.8853,HIGH,False
+2026-10-12 18:39:09.559,57,Talking on phone - right hand,0.9654,HIGH,False
+2026-10-12 18:39:10.122,58,Talking on phone - right hand,0.9654,HIGH,True
+2026-10-12 18:39:10.680,59,Talking on phone - right hand,0.9652,HIGH,True
+2026-10-12 18:39:11.243,60,Talking on phone - right hand,0.9647,HIGH,True
+2026-10-12 18:39:11.804,61,Talking on phone - right hand,0.8848,HIGH,True
+2026-10-12 18:39:12.374,62,Talking on phone - right hand,0.8044,HIGH,True
+2026-10-12 18:39:12.998,63,Talking on phone - right hand,0.7239,HIGH,True
+2026-10-12 18:39:13.569,64,Talking on phone - right hand,0.6435,HIGH,True
+2026-10-12 18:39:14.140,65,Talking on phone - right hand,0.5635,HIGH,True
+2026-10-12 18:39:14.709,66,Operating radio,0.4891,MEDIUM,True
+2026-10-12 18:39:15.285,67,Operating radio,0.5703,MEDIUM,True
+2026-10-12 18:39:15.870,68,Operating radio,0.6515,MEDIUM,True
+2026-10-12 18:39:16.436,69,Operating radio,0.7321,MEDIUM,True
+2026-10-12 18:39:17.009,70,Operating radio,0.8129,MEDIUM,True
+2026-10-12 18:39:17.579,71,Operating radio,0.894,MEDIUM,True
+2026-10-12 18:39:18.151,72,Operating radio,0.9751,MEDIUM,True
+2026-10-12 18:39:18.712,73,Operating radio,0.9744,MEDIUM,False
+2026-10-12 18:39:19.274,74,Operating radio,0.9736,MEDIUM,False
+2026-10-12 18:39:19.839,75,Operating radio,0.9732,MEDIUM,False
