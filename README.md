@@ -16,7 +16,8 @@ An end-to-end, real-time **Driver Monitoring System (DMS)** designed for Advance
 - **Automated Vehicle Safety HUD:** Real-time OpenCV heads-up display overlay showing risk level, behavior confidence bars, live FPS, and flashing critical warning banners.
 - **Telemetry Event Logging:** Automated export to `driver_event_log.csv` tracking timestamps, frame indices, confidence scores, and safety alert states.
 
----
+```
+
 ## 🏗️ Architecture Pipeline
 
 ### 1. Visual End-to-End Pipeline
@@ -25,40 +26,63 @@ An end-to-end, real-time **Driver Monitoring System (DMS)** designed for Advance
 flowchart TD
     subgraph S1["Stage 1: Video Ingestion & Preprocessing"]
         A["In-Cabin Camera / Video Stream"] --> B["OpenCV Frame Extraction (25 FPS)"]
-        B --> C["Color Conversion (BGR to RGB) & Resize (224x224)"]
-        C --> D["Tensor Formatting & Batching (tf.data API)"]
+        B --> C["Color Conversion & Resize (224x224 RGB)"]
+        C --> D["Tensor Conversion & Batch Prefetch"]
     end
 
-    subgraph S2["Stage 2: Deep Feature Extraction & Inference"]
-        D --> E["EfficientNetV2-S Backbone (ImageNet Pretrained)"]
+    subgraph S2["Stage 2: Deep Learning Classification"]
+        D --> E["EfficientNetV2-S Backbone"]
         E --> F["Global Average Pooling 2D"]
-        F --> G["Dropout Regularization (Rate = 0.3)"]
-        G --> H["Dense Softmax Classifier (10 Driver Classes)"]
+        F --> G["Dropout Regularization (0.3)"]
+        G --> H["Dense Softmax Classifier (10 Classes)"]
     end
 
     subgraph S3["Stage 3: Temporal Smoothing & Risk Engine"]
-        H --> I["Rolling Window Buffer (deque maxlen=12)"]
+        H --> I["Rolling Probability Buffer (deque maxlen=12)"]
         I --> J["Moving Average Probability Computation"]
-        J --> K["Consecutive High-Risk Confirmation Filter (Threshold = 8 Frames)"]
-        K --> L{"Dynamic Risk Categorization"}
+        J --> K["Consecutive High-Risk Filter (8 Frames)"]
+        K --> L{"Dynamic Risk Evaluator"}
         L -->|"Class c0"| R1["LOW RISK (Green: Normal Attentive)"]
-        L -->|"Classes c5, c6, c9"| R2["MEDIUM RISK (Amber: Cautionary Action)"]
-        L -->|"Classes c1-c4, c7, c8"| R3["HIGH RISK (Red: Severe Distraction)"]
+        L -->|"Classes c5, c6, c9"| R2["MEDIUM RISK (Amber: Caution)"]
+        L -->|"Classes c1-c4, c7, c8"| R3["HIGH RISK (Red: Distracted)"]
     end
 
     subgraph S4["Stage 4: Multi-Modal Output & Telemetry"]
-        E -.->|"Feature Maps + Gradients"| X1["Grad-CAM Explainability Visualizer"]
-        X1 --> X2["Class Attention Heatmap"]
+        E -.->|"Feature Maps"| X1["Grad-CAM Explainability Engine"]
+        X1 --> X2["Attention Heatmap Visualization"]
 
-        R1 & R2 & R3 --> HUD["OpenCV Real-Time Safety HUD Overlay"]
-        HUD --> V1["Dynamic Status Badge (Risk Level & FPS)"]
-        HUD --> V2["Behavior Confidence Progress Bar"]
-        HUD --> V3["Bottom Flashing Warning Banner"]
+        R1 --> HUD["OpenCV Real-Time Safety HUD"]
+        R2 --> HUD
+        R3 --> HUD
 
-        V1 & V2 & V3 --> OUT1["Annotated Safety Video (driver_safety_h264.mp4)"]
-        R1 & R2 & R3 --> OUT2["Vehicle Telemetry Event Log (driver_event_log.csv)"]
+        HUD --> V1["Dynamic Status Badge (Risk & FPS)"]
+        HUD --> V2["Behavior Confidence Bar"]
+        HUD --> V3["Flashing Critical Alert Banner"]
+
+        V1 --> OUT1["Annotated Safety Video (.mp4)"]
+        V2 --> OUT1
+        V3 --> OUT1
+
+        R1 --> OUT2["Vehicle Telemetry Event Log (.csv)"]
+        R2 --> OUT2
+        R3 --> OUT2
     end
+```
+
 ---
+
+### 2. Detailed Pipeline Breakdown
+
+| Pipeline Stage | Module / Component | Technical Implementation & Purpose |
+| :--- | :--- | :--- |
+| **1. Acquisition & Preprocessing** | `OpenCV` + `tf.data` | Ingests raw video/webcam frames, resizes to $224 \times 224$ RGB, and prefetches batches for sub-millisecond pipeline throughput. |
+| **2. Feature Extraction** | `EfficientNetV2-S` Backbone | Pretrained convolutional network with inverted bottleneck blocks, fine-tuned on the upper 120 layers to isolate driver hands, head tilt, and handheld devices. |
+| **3. Classification Head** | `GAP` + `Dropout(0.3)` + `Dense(10)` | Aggregates spatial feature maps into a 10-class softmax distribution across safe and distracted driving behaviors. |
+| **4. Explainability (XAI)** | `Grad-CAM` | Computes gradients of the target class score with respect to final convolutional layer feature maps, visually proving model attention on phones, wheels, and controls. |
+| **5. Temporal Smoothing** | `DriverBehaviorAnalyzer` | Employs a rolling FIFO queue (`deque(maxlen=12)`) to average frame probabilities, preventing erratic label flickers caused by rapid lighting or angle shifts. |
+| **6. False-Alarm Suppression** | 8-Frame Persistence Filter | Driver must continuously exhibit high-risk behavior for $\ge 8$ consecutive frames before triggering an active alert, safely filtering out brief mirror glances. |
+| **7. Safety HUD Generation** | `draw_safety_hud` | Renders a high-tech dashboard HUD with color-coded risk badges, behavior confidence bars, live FPS telemetry, and flashing bottom alert banners. |
+| **8. Telemetry Event Logging** | `driver_event_log.csv` | Automatically records ISO timestamps, frame indices, predicted behaviors, confidence metrics, and active alert statuses for safety auditing. |
 
 ## 📊 Dataset & Target Behaviors (State Farm Dataset)
 
