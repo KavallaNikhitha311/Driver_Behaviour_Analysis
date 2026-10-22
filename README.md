@@ -17,12 +17,47 @@ An end-to-end, real-time **Driver Monitoring System (DMS)** designed for Advance
 - **Telemetry Event Logging:** Automated export to `driver_event_log.csv` tracking timestamps, frame indices, confidence scores, and safety alert states.
 
 ---
-
 ## 🏗️ Architecture Pipeline
 
-[Input Video / Camera] │ ▼ [Frame Preprocessing (224x224 RGB)] │ ▼ [EfficientNetV2-S Feature Extractor] │ ▼ [Dense Softmax Classification (10 Classes)] │ ▼ [Temporal Smoothing & Moving-Average Buffer] │ ▼ [Dynamic Risk Assessment Engine (LOW / MED / HIGH)] │ ├──► [Real-Time HUD Video: annotated_safety_output.mp4] ├──► [Visual Explainability: Grad-CAM Attention Heatmaps] └──► [Telemetry Blackbox: driver_event_log.csv]
+### 1. Visual End-to-End Pipeline
 
+```mermaid
+flowchart TD
+    subgraph S1["Stage 1: Video Ingestion & Preprocessing"]
+        A["In-Cabin Camera / Video Stream"] --> B["OpenCV Frame Extraction (25 FPS)"]
+        B --> C["Color Conversion (BGR to RGB) & Resize (224x224)"]
+        C --> D["Tensor Formatting & Batching (tf.data API)"]
+    end
 
+    subgraph S2["Stage 2: Deep Feature Extraction & Inference"]
+        D --> E["EfficientNetV2-S Backbone (ImageNet Pretrained)"]
+        E --> F["Global Average Pooling 2D"]
+        F --> G["Dropout Regularization (Rate = 0.3)"]
+        G --> H["Dense Softmax Classifier (10 Driver Classes)"]
+    end
+
+    subgraph S3["Stage 3: Temporal Smoothing & Risk Engine"]
+        H --> I["Rolling Window Buffer (deque maxlen=12)"]
+        I --> J["Moving Average Probability Computation"]
+        J --> K["Consecutive High-Risk Confirmation Filter (Threshold = 8 Frames)"]
+        K --> L{"Dynamic Risk Categorization"}
+        L -->|"Class c0"| R1["LOW RISK (Green: Normal Attentive)"]
+        L -->|"Classes c5, c6, c9"| R2["MEDIUM RISK (Amber: Cautionary Action)"]
+        L -->|"Classes c1-c4, c7, c8"| R3["HIGH RISK (Red: Severe Distraction)"]
+    end
+
+    subgraph S4["Stage 4: Multi-Modal Output & Telemetry"]
+        E -.->|"Feature Maps + Gradients"| X1["Grad-CAM Explainability Visualizer"]
+        X1 --> X2["Class Attention Heatmap"]
+
+        R1 & R2 & R3 --> HUD["OpenCV Real-Time Safety HUD Overlay"]
+        HUD --> V1["Dynamic Status Badge (Risk Level & FPS)"]
+        HUD --> V2["Behavior Confidence Progress Bar"]
+        HUD --> V3["Bottom Flashing Warning Banner"]
+
+        V1 & V2 & V3 --> OUT1["Annotated Safety Video (driver_safety_h264.mp4)"]
+        R1 & R2 & R3 --> OUT2["Vehicle Telemetry Event Log (driver_event_log.csv)"]
+    end
 ---
 
 ## 📊 Dataset & Target Behaviors (State Farm Dataset)
